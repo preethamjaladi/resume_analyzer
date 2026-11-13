@@ -1,0 +1,42 @@
+
+# Python environment
+.venv/
+venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environment variables / API keys
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Node.js
+node_modules/
+.npm/
+*.log
+
+# React / Vite build files
+dist/
+.vite/
+coverage/
+
+# Operating system
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Legacy notebooks (migrated to Python)
+resume_analyzer.ipynb
+testcases.ipynb
