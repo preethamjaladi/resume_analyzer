@@ -3,3 +3,5 @@ langchain-groq
 pydantic>=2,<3
 python-dotenv
 pytest
+fastapi
+uvicorn[standard]
