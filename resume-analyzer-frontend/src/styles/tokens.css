@@ -1,0 +1,17 @@
+:root {
+  --ra-bg: #080808;
+  --ra-bg-soft: #100d0b;
+  --ra-surface: #181411;
+  --ra-surface-raised: #251c17;
+  --ra-espresso: #2c201d;
+  --ra-coffee: #c29b7a;
+  --ra-coffee-hover: #d4ac89;
+  --ra-cream: #f5efe9;
+  --ra-muted: #b6a69a;
+  --ra-muted-low: #938277;
+  --ra-border: #45352d;
+  --ra-sage: #acc4a5;
+  --ra-amber: #e5bd91;
+  --ra-font-display: "Manrope", "Inter", system-ui, sans-serif;
+  --ra-font-body: "Inter", system-ui, sans-serif;
+}
