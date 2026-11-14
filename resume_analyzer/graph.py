@@ -25,8 +25,11 @@ workflow_builder.add_node("verify_requirements", verify_requirements)
 workflow_builder.add_node("calculate_match_score", calculate_match_score)
 
 workflow_builder.add_edge(START, "analyze_resume")
-workflow_builder.add_edge("analyze_resume", "analyze_jd")
-workflow_builder.add_edge("analyze_jd", "compare_resume_jd")
+workflow_builder.add_edge(START, "analyze_jd")
+workflow_builder.add_edge(
+    ["analyze_resume", "analyze_jd"],
+    "compare_resume_jd",
+)
 workflow_builder.add_edge("compare_resume_jd", "verify_requirements")
 workflow_builder.add_edge("verify_requirements", "calculate_match_score")
 workflow_builder.add_edge("calculate_match_score", END)
@@ -67,22 +70,25 @@ review_builder.add_node("calculate_match_score", calculate_match_score)
 review_builder.add_node("human_review", human_review_checkpoint)
 review_builder.add_node("apply_human_review", apply_human_review)
 
-# Stage 4D — Reuse deterministic scoring after corrections
+# Reuse deterministic scoring after corrections
 review_builder.add_node("recalculate_match_score", calculate_match_score)
 review_builder.add_node( "generate_resume_suggestions", generate_resume_suggestions)
 review_builder.add_node("generate_edit_proposals",generate_edit_proposals)
 review_builder.add_node("review_resume_edits",review_resume_edits)
 review_builder.add_node("apply_resume_edits",apply_resume_edits)
 
-# Connect workflow
+#Connect workflow
 review_builder.add_edge(START, "analyze_resume")
-review_builder.add_edge("analyze_resume", "analyze_jd")
-review_builder.add_edge("analyze_jd", "compare_resume_jd")
+review_builder.add_edge(START, "analyze_jd")
+review_builder.add_edge(
+    ["analyze_resume", "analyze_jd"],
+    "compare_resume_jd",
+)
 review_builder.add_edge("compare_resume_jd", "verify_requirements")
 review_builder.add_edge("verify_requirements", "calculate_match_score")
 review_builder.add_edge("calculate_match_score", "human_review")
 review_builder.add_edge("human_review", "apply_human_review")
-# Stage 4D — Recalculate score
+#Recalculate score
 review_builder.add_edge("apply_human_review", "recalculate_match_score")
 review_builder.add_conditional_edges(
     "recalculate_match_score", route_optimization,

@@ -1,0 +1,152 @@
+{
+  "generated_at_utc": "2026-11-12T01:32:07.413253+00:00",
+  "dataset_version": "2.0-draft",
+  "provenance": {
+    "origin": "AI-assisted synthetic drafting and revision based on user review",
+    "independent_human_review_completed": false,
+    "reviewer": null,
+    "review_status": "pending",
+    "reviewed_at": null
+  },
+  "results": [
+    {
+      "run_id": "TC01",
+      "predicted_requirements": [
+        {
+          "requirement_id": "REQ_001",
+          "description": "Must hold a Bachelor's degree in Computer Science",
+          "category": "education",
+          "importance": "required",
+          "is_hard_requirement": true
+        },
+        {
+          "requirement_id": "REQ_002",
+          "description": "Python programming experience",
+          "category": "technical_skill",
+          "importance": "required",
+          "is_hard_requirement": false
+        },
+        {
+          "requirement_id": "REQ_003",
+          "description": "Experience developing REST APIs with Flask",
+          "category": "technical_skill",
+          "importance": "required",
+          "is_hard_requirement": false
+        },
+        {
+          "requirement_id": "REQ_004",
+          "description": "Experience using Docker",
+          "category": "technical_skill",
+          "importance": "required",
+          "is_hard_requirement": false
+        },
+        {
+          "requirement_id": "REQ_005",
+          "description": "Experience with PostgreSQL",
+          "category": "technical_skill",
+          "importance": "preferred",
+          "is_hard_requirement": false
+        }
+      ],
+      "result": "COMPLETE",
+      "gold_count": 5,
+      "model_count": 5,
+      "aligned_count": 5,
+      "integrity": {
+        "unique_model_requirement_ids": true,
+        "every_model_requirement_has_one_match": true,
+        "every_model_requirement_has_one_verification": true
+      },
+      "alignment_reviews": [],
+      "comparisons": [
+        {
+          "gold_id": "R1",
+          "model_id": "REQ_001",
+          "gold_description": "Bachelor’s degree in Computer Science",
+          "expected": "met",
+          "actual": "met",
+          "classification_correct": true,
+          "evidence_check": "PASS",
+          "evidence_note": "Quote agrees with an acceptable span",
+          "importance_correct": true,
+          "hard_flag_correct": true,
+          "result": "COMPARED"
+        },
+        {
+          "gold_id": "R2",
+          "model_id": "REQ_002",
+          "gold_description": "Python programming experience",
+          "expected": "met",
+          "actual": "met",
+          "classification_correct": true,
+          "evidence_check": "PASS",
+          "evidence_note": "Quote agrees with an acceptable span",
+          "importance_correct": true,
+          "hard_flag_correct": true,
+          "result": "COMPARED"
+        },
+        {
+          "gold_id": "R3",
+          "model_id": "REQ_003",
+          "gold_description": "Experience developing REST APIs with Flask",
+          "expected": "met",
+          "actual": "met",
+          "classification_correct": true,
+          "evidence_check": "PASS",
+          "evidence_note": "Quote agrees with an acceptable span",
+          "importance_correct": true,
+          "hard_flag_correct": true,
+          "result": "COMPARED"
+        },
+        {
+          "gold_id": "R4",
+          "model_id": "REQ_004",
+          "gold_description": "Experience using Docker",
+          "expected": "met",
+          "actual": "met",
+          "classification_correct": true,
+          "evidence_check": "PASS",
+          "evidence_note": "Quote agrees with an acceptable span",
+          "importance_correct": true,
+          "hard_flag_correct": true,
+          "result": "COMPARED"
+        },
+        {
+          "gold_id": "R5",
+          "model_id": "REQ_005",
+          "gold_description": "Experience with PostgreSQL",
+          "expected": "met",
+          "actual": "met",
+          "classification_correct": true,
+          "evidence_check": "PASS",
+          "evidence_note": "Quote agrees with an acceptable span",
+          "importance_correct": true,
+          "hard_flag_correct": true,
+          "result": "COMPARED"
+        }
+      ],
+      "metrics_on_aligned_only": {
+        "accuracy": 1.0,
+        "met_precision": 1.0,
+        "met_recall": 1.0,
+        "met_f1": 1.0,
+        "confusion_counts": {
+          "met -> met": 5
+        }
+      },
+      "scores": {
+        "gold_reference_score": 100.0,
+        "model_reported_score": 100.0,
+        "independently_recomputed_model_score": 100.0,
+        "internal_score_consistent": true,
+        "gold_score_directly_comparable": true
+      },
+      "hard_gaps": {
+        "reported": [],
+        "expected_from_model_classifications": [],
+        "internally_consistent": true,
+        "gold_unmet_hard_thresholds": []
+      }
+    }
+  ]
+}

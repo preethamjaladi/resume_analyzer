@@ -8,8 +8,7 @@ from .schemas import State, ResumeSuggestions
 # Use the existing Groq model with structured output
 suggestion_llm = llm.with_structured_output(
     ResumeSuggestions,
-    method="json_schema",
-    strict=True,
+    method = "function_calling",
 )
 
 
@@ -131,7 +130,19 @@ def generate_resume_suggestions(state: State) -> dict:
             15. Every suggestion must provide a meaningful improvement
                 in clarity, specificity, relevance, or presentation.
                 Avoid trivial paraphrasing of existing resume text.
+
+            16. FACTUAL ACCURACY:
+                Every proposed achievement, metric, technology, or
+                responsibility must already exist in the original
+                resume or explicitly provided additional information.
+
+                Never invent performance percentages, request volumes,
+                test coverage, deployment platforms, or new job duties.
+
+                If a qualification is missing, acknowledge the gap
+                rather than fabricating experience to satisfy it.
             """
+    
 
     suggestions = suggestion_llm.invoke(prompt)
 
