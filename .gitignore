@@ -40,3 +40,4 @@ coverage/
 # Legacy notebooks (migrated to Python)
 resume_analyzer.ipynb
 testcases.ipynb
+evaluation_report.json

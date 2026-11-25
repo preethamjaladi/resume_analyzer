@@ -196,6 +196,40 @@ def analyze_jd(state: State):
 
         Do not omit these qualifications even if they are unrelated
         to the job title.
+
+    
+      ALLOWED REQUIREMENT CATEGORIES:
+
+      - technical_skill
+      - experience
+      - education
+      - certification
+      - language
+      - responsibility
+      - other
+
+      CATEGORY CLASSIFICATION RULES:
+
+      Use only the categories listed above.
+
+      - technical_skill: Programming languages, frameworks, tools,
+        technical knowledge, and technical competencies.
+      - experience: Employment history, professional experience,
+        project experience, and required years of experience.
+      - education: Degrees and academic qualifications.
+      - certification: Professional certifications.
+      - language: Proficiency in a specific human language,
+        such as English, Spanish, or Mandarin.
+      - responsibility: Job duties and responsibilities.
+      - other: Communication, teamwork, adaptability,
+        collaboration, leadership, cultural fit, and soft skills.
+
+      IMPORTANT:
+      "communication" is NOT a valid category.
+      Classify communication skills as "other".
+
+      Never generate a category outside the allowed values.
+    
       JOB DESCRIPTION:
       {job_description}
       """
