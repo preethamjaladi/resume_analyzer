@@ -1,0 +1,28 @@
+
+# Git
+.git
+.gitignore
+
+# Environment variables and secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Python
+.venv
+venv
+__pycache__
+**/__pycache__
+.pytest_cache
+**/.pytest_cache
+*.pyc
+
+# Frontend dependencies and build output
+**/node_modules
+**/dist
+
+# Local files
+.DS_Store
+.vscode
+*.log
