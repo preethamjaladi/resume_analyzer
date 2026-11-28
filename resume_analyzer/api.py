@@ -5,6 +5,7 @@ import threading
 
 from contextlib import asynccontextmanager
 from uuid import UUID
+from .rate_limiter import AnalysisRateLimiter
 
 from fastapi import (
     FastAPI,
@@ -22,9 +23,19 @@ from .schemas import (
 )
 from .sessions import SessionStore
 
+from groq import (
+    RateLimitError,
+    APITimeoutError,
+    APIConnectionError,
+)
+
 
 session_store = SessionStore(checkpointer)
-
+analysis_limiter = AnalysisRateLimiter(
+    max_requests=30,
+    window_seconds=3600,
+    max_concurrent=2,
+)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -158,35 +169,64 @@ def health():
     return {"status": "ok"}
 
 
+
 @app.post("/analyses")
 def start_analysis(request: AnalysisRequest):
 
-    # Delete previously expired sessions.
-    session_store.cleanup_expired()
+    with analysis_limiter.admit():
 
-    thread_id, token = session_store.create_session()
+        session_store.cleanup_expired()
 
-    try:
-        with session_store.authorize(thread_id, token):
-            result = review_graph.invoke(
-                request.model_dump(),
-                config=graph_config(thread_id),
+        thread_id, token = session_store.create_session()
+
+        try:
+            with session_store.authorize(thread_id, token):
+                result = review_graph.invoke(
+                    request.model_dump(),
+                    config=graph_config(thread_id),
+                )
+
+                response = build_response(thread_id, result)
+
+            response["session_token"] = token
+            return response
+
+        except RateLimitError as exc:
+            session_store.delete_session(thread_id)
+
+            retry_after = exc.response.headers.get(
+                "retry-after", "15"
             )
 
-            response = build_response(
-                thread_id,
-                result,
-            )
+            if not retry_after.isdigit():
+                retry_after = "15"
 
-        # Return the secret only when creating the session.
-        response["session_token"] = token
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "Our AI service has reached its "
+                    "temporary usage limit. "
+                    "Please retry shortly."
+                ),
+                headers={
+                    "Retry-After": retry_after
+                },
+            ) from None
 
-        return response
+        except (APITimeoutError, APIConnectionError):
+            session_store.delete_session(thread_id)
 
-    except Exception:
-        # Prevent leftover resume data after failures.
-        session_store.delete_session(thread_id)
-        raise
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "The AI service is temporarily "
+                    "unavailable. Please try again."
+                ),
+            ) from None
+
+        except Exception:
+            session_store.delete_session(thread_id)
+            raise
 
 
 @app.post("/analyses/{thread_id}/review")
