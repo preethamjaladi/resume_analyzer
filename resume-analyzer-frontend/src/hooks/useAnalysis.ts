@@ -43,6 +43,9 @@ export function useAnalysis() {
   };
 
   const reset = () => {
+    analysisAPI.clearSession();
+
+    
     setAnalysis(null);
     setJobDescription("");
     setError("");
